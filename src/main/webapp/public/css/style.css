@@ -1,0 +1,16 @@
+header img {
+    max-width: 50px;
+    max-height: 50px;
+    object-fit: contain;
+}
+
+header .nav-link:hover {
+    color: #f8f9fa;
+    /* Color blanco suave */
+    text-decoration: underline;
+}
+
+header {
+    background-color: #007bff;
+    /* Azul por defecto */
+}
