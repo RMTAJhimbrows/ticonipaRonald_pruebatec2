@@ -4,19 +4,22 @@
         <div class="d-flex align-items-center">
             <img src="https://images.vexels.com/media/users/3/205046/isolated/lists/0dc6449cd2678d0945b85702ce586cf5-icono-de-smartphone-azul.png"
                 alt="Logo" class="me-3" style="width: 50px; height: 50px;">
-            <h1 class="h4 mb-0">Mi Aplicación</h1>
+            <h1 class="h4 mb-0">Mi App</h1>
         </div>
 
         <nav>
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="" href="/ticonipaRonald_pruebatec2/usuario">Home</a>
+                    <a class="" href="/app">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/ticonipaRonald_pruebatec2/usuario">Listado Usuarios</a>
+                    <a class="nav-link text-white" href="/app/ciudadano">Listado Usuarios</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/ticonipaRonald_pruebatec2/usuarioForm">Solicitar turno</a>
+                    <a class="nav-link text-white" href="/app/listaTramite">Solicitar turno</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/app/turnoForm">Modificar</a>
                 </li>
             </ul>
         </nav>

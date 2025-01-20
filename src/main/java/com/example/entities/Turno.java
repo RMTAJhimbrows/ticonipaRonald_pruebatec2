@@ -10,11 +10,10 @@ public class Turno {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long idTurno;
+    private Integer id;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn(name = "idCiudadano", nullable = false)
-    private Ciudadano ciudadano;
+    @Column(nullable = false)
+    private String codigo;
 
     @Column(nullable = false)
     private LocalDate fecha;
@@ -23,34 +22,45 @@ public class Turno {
     @Column(nullable = false)
     private TipoEstado estado;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Usuario usuario;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "tramite_id", nullable = false)
+    private Tramite tramite;
+
     public enum TipoEstado{
-        PENDIENTE,
+        ESPERA,
         ATENDIDO
     }
 
     public Turno() {
     }
 
-    public Turno(Long idTurno, LocalDate fecha, TipoEstado estado) {
-        this.idTurno = idTurno;
+    public Turno(Integer id, String codigo, LocalDate fecha, TipoEstado estado, Usuario usuario, Tramite tramite) {
+        this.id = id;
+        this.codigo = codigo;
         this.fecha = fecha;
         this.estado = estado;
+        this.usuario = usuario;
+        this.tramite = tramite;
     }
 
-    public Long getIdTurno() {
-        return idTurno;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdTurno(Long idTurno) {
-        this.idTurno = idTurno;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public Ciudadano getCiudadano() {
-        return ciudadano;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setCiudadano(Ciudadano ciudadano) {
-        this.ciudadano = ciudadano;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public LocalDate getFecha() {
@@ -67,5 +77,21 @@ public class Turno {
 
     public void setEstado(TipoEstado estado) {
         this.estado = estado;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Tramite getTramite() {
+        return tramite;
+    }
+
+    public void setTramite(Tramite tramite) {
+        this.tramite = tramite;
     }
 }
