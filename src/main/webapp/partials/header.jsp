@@ -13,13 +13,13 @@
                     <a class="" href="/app">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/app/ciudadano">Listado Usuarios</a>
+                    <a class="nav-link text-white" href="/app/mostrarLista">Listado de Turnos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/app/listaTramite">Solicitar turno</a>
+                    <a class="nav-link text-white" href="/app/crearTurnoForm">Solicitar turno</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/app/turnoForm">Modificar</a>
+                    <a class="nav-link text-white" href="/app/filtrar">Filtrar</a>
                 </li>
             </ul>
         </nav>

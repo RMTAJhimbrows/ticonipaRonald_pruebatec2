@@ -2,6 +2,7 @@ package com.example.servlets;
 
 import com.example.controllers.TramiteController;
 import com.example.controllers.TurnoController;
+import com.example.controllers.UsuarioController;
 import com.example.entities.Tramite;
 import com.example.entities.Turno;
 import com.example.entities.Usuario;
@@ -13,39 +14,39 @@ import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
 import java.time.LocalDate;
+import java.util.List;
 
 @WebServlet(urlPatterns = "/crearTurnoForm")
 public class TurnoServlet extends HttpServlet {
 
+    private UsuarioController usuarioController = new UsuarioController();
     private TurnoController turnoController = new TurnoController();
     private TramiteController tramiteController = new TramiteController();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Usuario> usuarios = usuarioController.findAll();
+        req.setAttribute("usuarios", usuarios);
+        List<Tramite> tramites = tramiteController.finAll();
+        req.setAttribute("tramites", tramites);
+
         req.getRequestDispatcher("crearTurno.jsp").forward(req, resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String nombre = req.getParameter("nombre");
-        String apellido = req.getParameter("apellido");
-        String fechaParam = req.getParameter("fecha");
-        LocalDate fecha = LocalDate.parse(fechaParam);
-        Integer tramite_id = Integer.valueOf(req.getParameter("tramite_id"));
-        Turno.TipoEstado estado = Turno.TipoEstado.ESPERA;
-        String codigo = "1011";// pendiente de generar codigo
+        try {
+            Integer usuarioId = Integer.parseInt(req.getParameter("usuarioId"));
+            Integer tramiteId = Integer.parseInt(req.getParameter("tramiteId"));
+            LocalDate fecha = LocalDate.parse(req.getParameter("fecha"));
 
-        Usuario nuevoUsuario = new Usuario();
-        nuevoUsuario.setNombre(nombre);
-        nuevoUsuario.setApellido(apellido);
+            turnoController.create(usuarioId, tramiteId, fecha);
 
-        Tramite tramiteEncontrado = tramiteController.findOne(tramite_id);
+            resp.sendRedirect(req.getContextPath() + "/mostrarLista");
 
-        Turno nuevoTurno = new Turno(null, codigo, fecha, estado, nuevoUsuario, tramiteEncontrado);
-
-        turnoController.create(nuevoTurno);
-
-        resp.sendRedirect(req.getContextPath() + "/usuario");
-
+        } catch (Exception e){
+            req.setAttribute("error", "Error al crear turno: " + e.getMessage());
+            req.getRequestDispatcher("crearTurno.jsp").forward(req, resp);
+        }
     }
 }

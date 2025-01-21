@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <%-- Importar las clases --%>
         <%@ page
-            import="java.util.List, com.example.entities.Ciudadano, com.example.entities.Tramite, com.example.entities.Turno"
+            import="java.util.List, com.example.entities.Usuario, com.example.entities.Tramite, com.example.entities.Turno"
             %>
 
 
@@ -12,10 +12,9 @@
                 <body>
                     <%@ include file="partials/header.jsp" %>
                         <div class="container mt-5">
-                            <h2 class="mb-4">Lista de Ciudadanos</h2>
+                            <h2 class="mb-4">Lista de Turnos</h2>
 
                         </div>
-
                         <table class="table table-bordered">
                             <thead class="table-dark">
                                 <tr>
@@ -23,39 +22,41 @@
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Apellido</th>
                                     <th scope="col">Trámites</th>
+                                    <th scope="col">Fecha</th>
                                     <th scope="col">Estado</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <% List<Ciudadano> listado = (List<Ciudadano>) request.getAttribute("listado");
-                                        if (listado != null && !listado.isEmpty()) {
+                                <% List<Turno> turnos = (List<Turno>) request.getAttribute("turnos");
+                                        if (turnos != null && !turnos.isEmpty()) {
                                         int index = 1;
-                                        for (Ciudadano ciudadano : listado) {
+                                        for (Turno turno : turnos) {
+                                        Usuario usuario = turno.getUsuario();
+                                        Tramite tramite = turno.getTramite();
                                         %>
                                         <tr>
                                             <th scope="row">
                                                 <%= index++ %>
                                             </th>
                                             <td>
-                                                <%= ciudadano.getNombre() %>
+                                                <%= usuario.getNombre() %>
                                             </td>
                                             <td>
-                                                <%= ciudadano.getApellido() %>
+                                                <%= usuario.getApellido() %>
                                             </td>
                                             <td>
-                                                <% for (Tramite tramite : ciudadano.getTramites()) {
-                                                    out.print(tramite.getNombre() + "<br>" ); } %>
+                                                <%= tramite.getNombre() %>
                                             </td>
                                             <td>
-                                                <% for (Turno turno : ciudadano.getTurnos()) {
-                                                    out.print("ID: " + turno.getIdTurno() + " -Estado: " + turno.getEstado() + " <br>");
-                                                    }
-                                                    %>
+                                                <%= turno.getFecha() %>
+                                            </td>
+                                            <td>
+                                                <%= turno.getEstado().name() %>
                                             </td>
                                         </tr>
                                         <% } } else { %>
                                             <tr>
-                                                <td colspan="5" class="text-center">No hay ciudadanos disponibles.</td>
+                                                <td colspan="5" class="text-center">No hay turnos disponibles.</td>
                                             </tr>
                                             <% } %>
                             </tbody>

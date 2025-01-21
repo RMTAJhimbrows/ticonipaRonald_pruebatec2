@@ -2,6 +2,8 @@ package com.example.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "usuario")
 public class Usuario {
@@ -14,6 +16,9 @@ public class Usuario {
 
     @Column(nullable = false)
     private String apellido;
+
+    @OneToMany(mappedBy = "usuario", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Turno> turnos;
 
     public Usuario() {
     }
@@ -46,6 +51,14 @@ public class Usuario {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
+    }
+
+    public List<Turno> getTurnos() {
+        return turnos;
+    }
+
+    public void setTurnos(List<Turno> turnos) {
+        this.turnos = turnos;
     }
 
     @Override

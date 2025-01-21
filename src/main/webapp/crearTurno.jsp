@@ -10,63 +10,48 @@
 
         <div class="container mt-5">
           <h2 class="mb-4">Formulario de Registro</h2>
-          <form action="/app/crearTurnoForm" method="post">
-
-            <!-- Nombre -->
+          <form action="crearTurnoForm" method="post">
             <div class="mb-3">
-              <label for="nombre" class="form-label">Nombre</label>
-              <input type="text" name="nombre" class="form-control" id="nombre" placeholder="Ingresa tu nombre"
-                required>
+                <label for="usuarioId" class="form-label">Usuario</label>
+                <select class="form-select" id="usuarioId" name="usuarioId" required>
+                    <%-- Llenar con usuarios disponibles --%>
+                    <% List<Usuario> usuarios = (List<Usuario>) request.getAttribute("usuarios");
+                       for (Usuario usuario : usuarios) { %>
+                        <option value="<%= usuario.getId() %>">
+                            <%= usuario.getNombre() %> <%= usuario.getApellido() %>
+                        </option>
+                    <% } %>
+                </select>
             </div>
-
-            <!-- Apellido -->
+        
             <div class="mb-3">
-              <label for="apellido" class="form-label">Apellido</label>
-              <input type="text" name="apellido" class="form-control" id="apellido" placeholder="Ingresa tu Apellido"
-                required>
+                <label for="tramiteId" class="form-label">Trámite</label>
+                <select class="form-select" id="tramiteId" name="tramiteId" required>
+                    <%-- Llenar con trámites disponibles --%>
+                    <% List<Tramite> tramites = (List<Tramite>) request.getAttribute("tramites");
+                       for (Tramite tramite : tramites) { %>
+                        <option value="<%= tramite.getId() %>">
+                            <%= tramite.getNombre() %>
+                        </option>
+                    <% } %>
+                </select>
             </div>
-
-            <!-- Tipo de Tramite -->
-            <select name="tipoTramite" id="tipoTramite" onchange="mostrarTramiteSeleccionado()" required>
-              <option value="" selected disabled>Seleccione un trámite</option>
-
-              <% List<Tramite> tramites = (List<Tramite>)request.getAttribute("tramites"); 
-
-                for(Tramite tramite: tramites){%>
-                  
-              <option value="<%= tramite.getId() %>"><%= tramite.getNombre()%></option>
-
-              <% } %>
-            </select>
-            <p>Tramite seleccionada: <span id="tramiteSeleccionado">Ninguna</span></p>
-
-
-            <!-- Seleccionar fecha -->
-            <div class="container mt-5">
-              <h2>Seleccionar una Fecha</h2>
-              <!-- Campo de fecha -->
-              <div class="form-group">
-                <label for="datepicker" class="form-label">Fecha:</label>
-                <input type="text" class="form-control" id="datepicker" placeholder="Selecciona una fecha">
-              </div>
-              
-              <!-- Mostrar la fecha seleccionada -->
-              <div class="mt-3">
-                <p>Fecha seleccionada: <span id="selected-date">Ninguna</span></p>
-              </div>
+        
+            <div class="mb-3">
+                <label for="fecha" class="form-label">Fecha</label>
+                <input type="date" class="form-control" id="fecha" name="fecha" required>
             </div>
-
-            <!-- Checkbox -->
-            <div class="form-check mb-3">
-              <input class="form-check-input" type="checkbox" id="terminos" required>
-              <label class="form-check-label" for="terminos">
-                Acepto los términos y condiciones
-              </label>
+        
+            <div class="mb-3">
+                <label for="estado" class="form-label">Estado</label>
+                <select class="form-select" id="estado" name="estado" required>
+                    <option value="ESPERA">En espera</option>
+                    <option value="ATENDIDO">Atendido</option>
+                </select>
             </div>
-
-            <!-- Botón de envío -->
-            <button type="submit" class="btn btn-primary">Solicitar Turno</button>
-          </form>
+        
+            <button type="submit" class="btn btn-primary">Crear Turno</button>
+        </form>
         </div>
         <!-- Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"></script>

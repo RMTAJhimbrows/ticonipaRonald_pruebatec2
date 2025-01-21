@@ -2,6 +2,8 @@ package com.example.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tramite")
 public class Tramite {
@@ -12,6 +14,9 @@ public class Tramite {
 
     @Column(nullable = false)
     private String nombre;
+
+    @OneToMany(mappedBy = "tramite", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Turno> turnos;
 
     public Tramite() {
     }
@@ -35,5 +40,13 @@ public class Tramite {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public List<Turno> getTurnos() {
+        return turnos;
+    }
+
+    public void setTurnos(List<Turno> turnos) {
+        this.turnos = turnos;
     }
 }
