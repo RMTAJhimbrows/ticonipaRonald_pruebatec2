@@ -1,25 +1,28 @@
-<header class="bg-primary text-white py-3">
+<header class="bg-secondary text-white py-3">
     <div class="container d-flex justify-content-between align-items-center">
 
         <div class="d-flex align-items-center">
-            <img src="https://images.vexels.com/media/users/3/205046/isolated/lists/0dc6449cd2678d0945b85702ce586cf5-icono-de-smartphone-azul.png"
-                alt="Logo" class="me-3" style="width: 50px; height: 50px;">
-            <h1 class="h4 mb-0">Mi App</h1>
+            <img src="https://tecnologiaplus.com/wp-content/uploads/2020/09/turnos4-1-300x243.png" alt="Logo"
+                class="me-3" style="width: 50px; height: 50px;">
+            <h1 class="h4 mb-0">Mi AppTurnero</h1>
         </div>
 
         <nav>
             <ul class="nav">
                 <li class="nav-item">
-                    <a class="" href="/app">Home</a>
+                    <a class="btn btn-secondary" href="/app" role="button">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/app/mostrarLista">Listado de Turnos</a>
+                    <a class="btn btn-secondary" href="/app/mostrarLista" role="button">Listado de Turnos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/app/crearTurnoForm">Solicitar turno</a>
+                    <a class="btn btn-secondary" href="/app/crearTurnoForm" role="button">Solicitar turno</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/app/filtrar">Filtrar</a>
+                    <a class="btn btn-secondary" href="/app/filtrarTurnos" role="button">Filtrar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="btn btn-secondary" href="/app/crearUsuario" role="button">Registrarse</a>
                 </li>
             </ul>
         </nav>

@@ -7,6 +7,7 @@ import com.example.persistences.GenericoJPA;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class TurnoController {
 
@@ -43,5 +44,23 @@ public class TurnoController {
 
     public List<Turno> findALl() {
         return turnoJPA.findAll();
+    }
+
+    /**
+     * Filtrar turnos por estado utilizando stream.
+     * @param estado El estado por el cual se va a filtrar (puede ser null o vacío para devolver todos).
+     * @param fechaInicio La fecha de inicio del rango(puede ser null para ignorar).
+     * @param fechaFin La fecha de fin del rango (puede ser null para ignorar) .
+     * @return Lista de turnos filtrados.
+     */
+    public List<Turno> filtarTurnoFecha(String estado, LocalDate fechaInicio, LocalDate fechaFin) {
+
+        List<Turno> turnos = turnoJPA.findAll();
+
+        return turnos.stream()
+                .filter(turno -> (estado == null || estado.isEmpty() || turno.getEstado().toString().equalsIgnoreCase(estado)))
+                .filter(turno -> (fechaInicio == null || !turno.getFecha().isBefore(fechaInicio)))
+                .filter(turno -> (fechaFin == null || !turno.getFecha().isAfter(fechaFin)))
+                .collect(Collectors.toList());
     }
 }
