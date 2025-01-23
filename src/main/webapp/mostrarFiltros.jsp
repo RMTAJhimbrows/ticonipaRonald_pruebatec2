@@ -7,15 +7,16 @@
 <html>
     <%@ include file="partials/head.jsp" %>
 <body>
+    <main>
     <%@ include file="partials/header.jsp" %>
-    <form action="<%= request.getContextPath() %>/filtrarTurnos" method="get" class="mb-4">
+    <form action="<%= request.getContextPath() %>/filtrarTurnos" method="post" class="mb-4">
         <div class="row">
             <div class="col-md-3">
                 <label for="estado" class="form-label">Filtrar por Estado:</label>
                 <select name="estado" id="estado" class="form-select">
                     <option value="">Todos</option>
-                    <option value="ESPERA">En espera</option>
-                    <option value="ATENDIDO">Atendidos</option>
+                    <option value="ESPERA" <%= "ESPERA".equals(request.getAttribute("estado")) ? "selected" : "" %>>En espera</option>
+                    <option value="ATENDIDO" <%= "ATENDIDO".equals(request.getAttribute("estado")) ? "selected" : "" %>>Atendidos</option>
                 </select>
             </div>
             <div class="col-md-3">
@@ -62,6 +63,9 @@
                <% } %>
         </tbody>
     </table>
+</main>
     <%@ include file="partials/script.jsp" %>
+    <%@ include file="partials/footer.jsp" %>
+
 </body>
 </html>

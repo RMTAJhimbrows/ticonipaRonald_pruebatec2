@@ -4,7 +4,6 @@ import com.example.controllers.TramiteController;
 import com.example.controllers.TurnoController;
 import com.example.controllers.UsuarioController;
 import com.example.entities.Tramite;
-import com.example.entities.Turno;
 import com.example.entities.Usuario;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -17,7 +16,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @WebServlet(urlPatterns = "/crearTurnoForm")
-public class TurnoServlet extends HttpServlet {
+public class CrearTurnoServlet extends HttpServlet {
 
     private UsuarioController usuarioController = new UsuarioController();
     private TurnoController turnoController = new TurnoController();
@@ -27,7 +26,7 @@ public class TurnoServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         List<Usuario> usuarios = usuarioController.findAll();
         req.setAttribute("usuarios", usuarios);
-        List<Tramite> tramites = tramiteController.finAll();
+        List<Tramite> tramites = tramiteController.findAll();
         req.setAttribute("tramites", tramites);
 
         req.getRequestDispatcher("crearTurno.jsp").forward(req, resp);
@@ -46,7 +45,7 @@ public class TurnoServlet extends HttpServlet {
 
         } catch (Exception e){
             req.setAttribute("error", "Error al crear turno: " + e.getMessage());
-            req.getRequestDispatcher("crearTurno.jsp").forward(req, resp);
+            req.getRequestDispatcher("error.jsp").forward(req, resp);
         }
     }
 }

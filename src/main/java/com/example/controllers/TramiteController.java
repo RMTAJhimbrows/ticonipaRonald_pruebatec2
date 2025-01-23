@@ -5,6 +5,10 @@ import com.example.persistences.GenericoJPA;
 
 import java.util.List;
 
+/**
+ * Controlador para gestionar las operaciones relacionadas con la entidad Tramite.
+ * Este controlador utiliza un objeto GenericoJPA para interactuar con la base de datos.
+ */
 public class TramiteController {
     private final GenericoJPA<Tramite, Integer> tramiteJPA;
 
@@ -12,20 +16,23 @@ public class TramiteController {
         this.tramiteJPA = new GenericoJPA<>(Tramite.class);
     }
 
+    /**
+     * Busca un trámite por su ID.
+     *
+     * @param tramite_id El ID del trámite a buscar.
+     * @return El trámite encontrado o null si no existe.
+     */
     public Tramite findOne(Integer tramite_id) {
+
         return tramiteJPA.findOne(tramite_id);
     }
 
-
-    public List<Tramite> finAll() {
-        List<Tramite> tramites = tramiteJPA.findAll();
-        if (tramites == null || tramites.isEmpty()) {
-            System.out.println("No se encontraron trámites en la base de datos.");
-        } else {
-            System.out.println("Trámites cargados: " + tramites.size());
-            tramites.forEach(t -> System.out.println("Trámite: " + t.getId() + ", Nombre: " + t.getNombre()));
-
-        }
-        return tramites;
+    /**
+     * Obtiene una lista de todos los trámites almacenados en la base de datos.
+     *
+     * @return Una lista con todos los trámites.
+     */
+    public List<Tramite> findAll() {
+        return tramiteJPA.findAll();
     }
 }

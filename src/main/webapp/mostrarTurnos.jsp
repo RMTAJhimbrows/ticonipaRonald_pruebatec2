@@ -10,61 +10,69 @@
             <%@ include file="partials/head.jsp" %>
 
                 <body>
-                    <%@ include file="partials/header.jsp" %>
-                        <div class="container mt-5">
-                            <h2 class="mb-4">Lista de Turnos</h2>
-                        </div>
+                    <main>
+                        <%@ include file="partials/header.jsp" %>
+                            <div class="container mt-5">
+                                <h2 class="mb-4">Lista de Turnos</h2>
+                            </div>
 
-                        <table class="table table-bordered">
-                            <thead class="table-dark">
-                                <tr>
-                                    <th scope="col">#</th>
-                                    <th scope="col">Nombre</th>
-                                    <th scope="col">Apellido</th>
-                                    <th scope="col">Trámites</th>
-                                    <th scope="col">Fecha</th>
-                                    <th scope="col">Estado</th>
-                                </tr>
-                            </thead>
+                            <table class="table table-bordered">
+                                <thead class="table-dark">
+                                    <tr>
+                                        <th scope="col">#</th>
+                                        <th scope="col">Nombre</th>
+                                        <th scope="col">Apellido</th>
+                                        <th scope="col">Trámites</th>
+                                        <th scope="col">Fecha</th>
+                                        <th scope="col">Estado</th>
+                                        <th scope="col">Turno</th>
 
-                            <tbody>
-                                <% List<Turno> turnos = (List<Turno>) request.getAttribute("turnos");
-                                        if (turnos != null && !turnos.isEmpty()) {
-                                        int index = 1;
-                                        for (Turno turno : turnos) {
-                                        Usuario usuario = turno.getUsuario();
-                                        Tramite tramite = turno.getTramite();
-                                        %>
-                                        <tr>
-                                            <th scope="row">
-                                                <%= index++ %>
-                                            </th>
-                                            <td>
-                                                <%= usuario.getNombre() %>
-                                            </td>
-                                            <td>
-                                                <%= usuario.getApellido() %>
-                                            </td>
-                                            <td>
-                                                <%= tramite.getNombre() %>
-                                            </td>
-                                            <td>
-                                                <%= turno.getFecha() %>
-                                            </td>
-                                            <td>
-                                                <%= turno.getEstado().name() %>
-                                            </td>
-                                        </tr>
-                                        <% } } else { %>
+                                    </tr>
+                                </thead>
+
+                                <tbody>
+                                    <% List<Turno> turnos = (List<Turno>) request.getAttribute("turnos");
+                                            if (turnos != null && !turnos.isEmpty()) {
+                                            int index = 1;
+                                            for (Turno turno : turnos) {
+                                            Usuario usuario = turno.getUsuario();
+                                            Tramite tramite = turno.getTramite();
+                                            %>
                                             <tr>
-                                                <td colspan="5" class="text-center">No hay turnos disponibles.</td>
+                                                <th scope="row">
+                                                    <%= index++ %>
+                                                </th>
+                                                <td>
+                                                    <%= usuario.getNombre() %>
+                                                </td>
+                                                <td>
+                                                    <%= usuario.getApellido() %>
+                                                </td>
+                                                <td>
+                                                    <%= tramite.getNombre() %>
+                                                </td>
+                                                <td>
+                                                    <%= turno.getFecha() %>
+                                                </td>
+                                                <td>
+                                                    <%= turno.getEstado().name() %>
+                                                </td>
+                                                <td>
+                                                    <%= turno.getCodigo() %>
+                                                </td>
                                             </tr>
-                                            <% } %>
-                            </tbody>
-                        </table>
+                                            <% } } else { %>
+                                                <tr>
+                                                    <td colspan="5" class="text-center">No hay turnos disponibles.</td>
+                                                </tr>
+                                                <% } %>
+                                </tbody>
+                            </table>
+                    </main>
 
-                        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-                            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-                            crossorigin="anonymous"></script>
+                    <%@ include file="partials/script.jsp" %>
+                        <%@ include file="partials/footer.jsp" %>
+
                 </body>
+
             </html>

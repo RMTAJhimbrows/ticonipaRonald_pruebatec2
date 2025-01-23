@@ -20,13 +20,17 @@ public class CrearUsuarioServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        String nombre = req.getParameter("nombre");
-        String apellido = req.getParameter("apellido");
 
-        usuarioController.create(nombre, apellido);
+        try {
+            String nombre = req.getParameter("nombre");
+            String apellido = req.getParameter("apellido");
 
-        resp.sendRedirect(req.getContextPath() + "/mostrarLista");
+            usuarioController.create(nombre, apellido);
 
+            resp.sendRedirect(req.getContextPath() + "/crearTurnoForm");
+        } catch (Exception e){
+            req.setAttribute("error", "Error al crear usuario: " + e.getMessage());
+            req.getRequestDispatcher("error.jsp").forward(req, resp);
+        }
     }
-
 }

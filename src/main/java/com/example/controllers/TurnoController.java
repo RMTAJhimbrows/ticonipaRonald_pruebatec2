@@ -8,26 +8,47 @@ import com.example.persistences.GenericoJPA;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
-
+/**
+ * Controlador para gestionar las operaciones relacionadas con la entidad Turno.
+ * Este controlador interactúa con la base de datos mediante un objeto GenericoJPA.
+ */
 public class TurnoController {
 
+    // Objetos de persistencia genéricos para las entidades Turno, Tramite y Usuario.
     private final GenericoJPA<Turno, Integer> turnoJPA;
     private final GenericoJPA<Tramite, Integer> tramiteJPA;
     private final GenericoJPA<Usuario, Integer> usuarioJPA;
 
+    /**
+     * Constructor que inicializa los objetos GenericoJPA para las entidades correspondientes.
+     */
     public TurnoController() {
         this.turnoJPA = new GenericoJPA<>(Turno.class);
         this.tramiteJPA = new GenericoJPA<>(Tramite.class);
         this.usuarioJPA = new GenericoJPA<>(Usuario.class);
     }
 
+    /**
+     * Crea un nuevo turno en la base de datos.
+     *
+     * @param usuarioId ID del usuario asociado al turno.
+     * @param tramiteId ID del trámite asociado al turno.
+     * @param fecha Fecha del turno.
+     * @throws IllegalArgumentException Si el usuario o el trámite no existen en la base de datos.
+     */
     public void create(Integer usuarioId, Integer tramiteId, LocalDate fecha) {
 
+        // Genera el número de turno único.
+        Integer codigo = obtenerNumero();
+
+        // Estado inicial del turno.
         Turno.TipoEstado estado = Turno.TipoEstado.ESPERA;
-        String codigo = "1011";// pendiente de generar codigo
+
+        // Busca el usuario y el trámite en la base de datos.
         Usuario usuario = usuarioJPA.findOne(usuarioId);
         Tramite tramite = tramiteJPA.findOne(tramiteId);
 
+        // Verifica que usuario y trámite existan.
         if (usuario == null || tramite == null) {
             throw new IllegalArgumentException("Usuario o trámite no encontrado");
         }
@@ -42,7 +63,12 @@ public class TurnoController {
         turnoJPA.create(turno);
     }
 
-    public List<Turno> findALl() {
+    /**
+     * Obtiene todos los turnos almacenados en la base de datos.
+     *
+     * @return Lista de todos los turnos.
+     */
+    public List<Turno> findAll() {
         return turnoJPA.findAll();
     }
 
@@ -63,4 +89,20 @@ public class TurnoController {
                 .filter(turno -> (fechaFin == null || !turno.getFecha().isAfter(fechaFin)))
                 .collect(Collectors.toList());
     }
+
+    /**
+     * Genera el número de turno único sumando 1 al mayor número de turno existente.
+     *
+     * @return El siguiente número de turno disponible.
+     */
+    public Integer obtenerNumero(){
+        List<Turno> turnos = turnoJPA.findAll();
+
+        // Encuentra el código más alto y le suma 1; si no hay turnos, devuelve 1.
+        return turnos.stream()
+                .mapToInt(Turno::getCodigo)
+                .max()
+                .orElse(0) + 1;
+    }
 }
+

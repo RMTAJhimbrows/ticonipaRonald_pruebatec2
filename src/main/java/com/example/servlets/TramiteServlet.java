@@ -1,7 +1,6 @@
 package com.example.servlets;
 
 import com.example.controllers.TramiteController;
-import com.example.controllers.TurnoController;
 import com.example.entities.Tramite;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -18,11 +17,8 @@ public class TramiteServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Tramite> tramites = tramiteController.finAll();
+        List<Tramite> tramites = tramiteController.findAll();
         req.setAttribute("tramites", tramites);
         req.getRequestDispatcher("crearTurno.jsp").forward(req, resp);
-
     }
-
-
 }
